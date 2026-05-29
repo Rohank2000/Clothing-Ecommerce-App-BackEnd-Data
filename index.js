@@ -193,7 +193,7 @@ const getCategoriesDataFromtheDatabase = async ()=>{
 
 //using Above Mongoose function with Express 'GET' Route to Fetch Category Data from the Database
 
-app.get("/api/categories", async (req,res)=>{
+app.get("/api/fetch/categories", async (req,res)=>{
 try {
     const categoryData = await getCategoriesDataFromtheDatabase();
     res.status(200).json({message:"Fetched All Category from the Database.", data: { category: categoryData }})
