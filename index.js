@@ -252,11 +252,11 @@ try {
 
 const createOrderInDatabase = async (Input)=>{
     try {
-        const {userId, cartItems, total, chosenAddress} = Input;
+        const {userId, cartItems, totalPrice, chosenAddress} = Input;
 
         const newOrder = {
             item: cartItems,
-            totalAmount:total,
+            totalAmount:totalPrice,
             shippingAddress:chosenAddress,
         }
 
