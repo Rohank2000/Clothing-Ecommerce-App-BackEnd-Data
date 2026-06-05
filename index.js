@@ -493,7 +493,7 @@ app.get("/api/fetch/orders", async (req, res) => {
   }
 });
 
-const PORT = 3000;
+const PORT = 10000;
 
 app.listen(PORT, () => {
   console.log("Server Is Running on PORT - ", PORT);
