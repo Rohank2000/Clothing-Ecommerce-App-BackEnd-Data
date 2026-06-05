@@ -1,24 +1,19 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema(
-  {
-    userId: {
-      type: String,
-      required: true,
-    },
-    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Clothing" }],
-    cart: [
-      {
-        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Clothing" },
-        quantity: { type: Number, default: 1 },
-      },
-    ],
-    orders: [
-      {
-        items: Array,
-        totalAmount: Number,
-        date: { type: Date, default: Date.now },
-        shippingAddress: {
+const CartItemSchema = new mongoose.Schema({
+  productId: {
+    type: String,
+    required: true
+  },
+  quantity: {
+    type: Number,
+    default: 1,
+    min: 1,
+  }
+}, { _id: false }); 
+
+const ShippingAddressSchema = new mongoose.Schema(
+{
           userId: {
             type: String,
             require: true,
@@ -59,13 +54,36 @@ const UserSchema = new mongoose.Schema(
             type: String,
             require: true,
           },
-        },
-      },
-    ],
+        },{ _id: false });
+
+const OrderSchema = new mongoose.Schema({
+  items: [CartItemSchema],
+  totalAmount: {
+    type: Number,
+    required: true
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  shippingAddress: {
+    type: ShippingAddressSchema,
+    required: true
+  }
+});
+
+const UserSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    wishlist: [String],
+    cart: [CartItemSchema],
+    orders: [OrderSchema],
   },
   { timestamps: true }
 );
 
 const User = mongoose.model("UserProfile", UserSchema);
-
 module.exports = User;
