@@ -389,9 +389,10 @@ app.post("/api/cart", async (req, res) => {
 
 //function to Fetch Cart Data from the Database using Mongoose
 
-const getCartDataFromTheDatabase = async () => {
+const getCartDataFromTheDatabase = async (cartGetInput) => {
   try {
-    const getCartData = await userModel.find().select("cart");
+    const {userId} = cartGetInput;
+    const getCartData = await userModel.findOne({userId: userId}).select("cart userId");
     return getCartData;
   } catch (error) {
     console.log(
@@ -405,15 +406,16 @@ const getCartDataFromTheDatabase = async () => {
 
 app.get("/api/fetch/cart", async (req, res) => {
   try {
-    const cartData = await getCartDataFromTheDatabase();
+    const cartData = await getCartDataFromTheDatabase(req.body);
     if (!cartData) {
       res.status(404).json({ message: "Cart Data Not Found." });
     } else {
-    }
-    res.status(200).json({
+      res.status(200).json({
       message: "Cart Data Successfully Fetched from the Database.",
       data: { cart: cartData },
     });
+    }
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
