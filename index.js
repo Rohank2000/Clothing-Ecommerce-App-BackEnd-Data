@@ -409,8 +409,10 @@ const createOrderInDatabase = async (Input) => {
     const { userId, cartItems, totalPrice, chosenAddress } = Input;
 
     const newOrder = {
-      item: cartItems,
-      totalAmount: totalPrice,
+items: cartItems.map(item => ({ 
+    product: item.productId,           
+    quantity: item.quantity
+  })),      totalAmount: totalPrice,
       shippingAddress: chosenAddress,
     };
 
