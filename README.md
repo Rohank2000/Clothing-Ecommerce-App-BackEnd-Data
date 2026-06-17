@@ -39,8 +39,8 @@ A RESTful backend API for a clothing e-commerce application. Built with **Node.j
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
-   cd clothing-ecommerce-app---backend
+   git clone https://github.com/Rohank2000/Major-Project-1-BackEnd.git
+   cd Major-Project-1-BackEnd
 2. Install dependencies:
 npm install
 3. Create a .env file in the project root and add your MongoDB connection string:
